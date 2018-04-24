@@ -17,12 +17,11 @@ namespace UnityUtility
 		/// <summary>
 		/// 用于快速索引位于 GlobalObject 上的 Component
 		/// </summary>
-		[SerializeField]
-		private SDictionary<Type, Component> _components = new SDictionary<Type, Component>();
+		private Dictionary<Type, Component> _components = new Dictionary<Type, Component>();
 
 		private static GlobalObject _instance;
 
-		private static SDictionary<Type, Component> Components
+		private static Dictionary<Type, Component> Components
 		{
 			get { return Instance._components; }
 		}

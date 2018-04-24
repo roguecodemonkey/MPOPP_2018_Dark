@@ -57,7 +57,7 @@ namespace ElementWar
 
 		void Update()
 		{
-			Zoom();
+			//Zoom();
 			MoveCamera();
 		}
 

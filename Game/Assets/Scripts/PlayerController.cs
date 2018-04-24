@@ -1,10 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityUtility;
 
+[RequireComponent(typeof(GroundDetector))]
+[RequireComponent(typeof(CapsuleCollider))]
+[RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(SonarFx))]
 public class PlayerController : MonoBehaviour
 {
-	[SerializeField, Range(0, 10)]
+	[SerializeField]
 	float moveSpeed;
 
 	[SerializeField]
@@ -16,16 +21,55 @@ public class PlayerController : MonoBehaviour
 	[SerializeField]
 	float crouchSpeedMultiplier;
 
+	[SerializeField]
+	float sonarCooldown;
+
+	GroundDetector ground;
+	CapsuleCollider bodyCollider;
+	new Rigidbody rigidbody;
+	SonarFx sonar;
+
+	Timer sonarTimer;
+
 	bool isAirborne;
 	bool isCrouching;
 
+	float crouchPercentage;
+	float origColliderHeight;
+	Vector3 origColliderCenter;
+
+	private void Awake()
+	{
+		ground = GetComponent<GroundDetector>();
+		rigidbody = GetComponent<Rigidbody>();
+		bodyCollider = GetComponent<CapsuleCollider>();
+		sonar = GetComponent<SonarFx>();
+		sonarTimer = new Timer();
+
+		crouchPercentage = crouchHeight / bodyCollider.height;
+		origColliderHeight = bodyCollider.height;
+		origColliderCenter = bodyCollider.center;
+
+		ground.OnTouchGround += _onTouchGround;
+		ground.OnLeaveGround += _onLeaveGround;
+	}
+
 	private void Update ()
 	{
-		DetectGround();
 		Jump();
 		Crouch();
 		MovePlayer();
+		UseSonar();
     }
+
+	private void UseSonar()
+	{
+		if (Input.GetButtonDown("Interact") && sonarTimer.IsReachedTime())
+		{
+			sonarTimer.Start(sonarCooldown);
+			sonar.StartSonar();
+		}
+	}
 
 	private void MovePlayer()
 	{
@@ -34,22 +78,49 @@ public class PlayerController : MonoBehaviour
 		if (spaceMovement.sqrMagnitude > 1)
 			spaceMovement.Normalize();
 
-		transform.Translate(spaceMovement * moveSpeed * Time.deltaTime);
-	}
+		var moveDir = spaceMovement * moveSpeed * Time.deltaTime;
 
-	private void DetectGround()
-	{
+		if (isCrouching)
+			moveDir *= crouchSpeedMultiplier;
 
+		transform.Translate(moveDir);
 	}
 
 	private void Jump()
 	{
-
+		if (Input.GetButtonDown("Jump") && !isAirborne)
+		{
+			rigidbody.AddForce(jumpPower * Vector3.up);
+		}
 	}
 
 	private void Crouch()
 	{
+		var crouching = Input.GetButton("Crouch");
+		if (crouching)
+		{
+			if (isCrouching) return;
+			isCrouching = true;
+			bodyCollider.height = origColliderHeight * crouchPercentage;
+			bodyCollider.center = origColliderCenter * crouchPercentage;
+		}
+		else
+		{
+			if (!isCrouching) return;
+			isCrouching = false;
+			bodyCollider.height = origColliderHeight;
+			bodyCollider.center = origColliderCenter;
+		}
+	}
 
+	private void _onTouchGround(Collider collider)
+	{
+		isAirborne = false;
+	}
+
+	private void _onLeaveGround(Collider collider)
+	{
+		isAirborne = true;
 	}
 }
 

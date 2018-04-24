@@ -23,7 +23,6 @@
 using System.Collections;
 using UnityEngine;
 
-[RequireComponent(typeof(Camera))]
 public class SonarFx : MonoBehaviour
 {
     // Sonar mode (directional or spherical)
@@ -74,6 +73,7 @@ public class SonarFx : MonoBehaviour
     [SerializeField] Shader shader;
 
 	float evaluationTime;
+	Vector3 generatePoint = Vector3.zero;
 
     // Private shader variables
     int baseColorID;
@@ -95,13 +95,13 @@ public class SonarFx : MonoBehaviour
 
     void OnEnable()
     {
-        GetComponent<Camera>().SetReplacementShader(shader, null);
+        Camera.main.SetReplacementShader(shader, null);
 		Update();
 	}
 
     void OnDisable()
     {
-        GetComponent<Camera>().ResetReplacementShader();
+		Camera.main.ResetReplacementShader();
     }
 
 	private void Update()
@@ -121,7 +121,7 @@ public class SonarFx : MonoBehaviour
 		else
 		{
 			Shader.EnableKeyword("SONAR_SPHERICAL");
-			Shader.SetGlobalVector(waveVectorID, _origin);
+			Shader.SetGlobalVector(waveVectorID, generatePoint);
 		}
 	}
 
@@ -134,6 +134,7 @@ public class SonarFx : MonoBehaviour
 	IEnumerator GenerateWaves()
 	{
 		var time = 0f;
+		generatePoint = _origin + transform.position;
 		while (time <= Duration)
 		{
 			evaluationTime = time / Duration;

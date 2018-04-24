@@ -1,16 +1,43 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
-public class GroundDetector : MonoBehaviour {
+public class GroundDetector : MonoBehaviour
+{
+	[SerializeField]
+	LayerMask detectMask;
 
-	// Use this for initialization
-	void Start () {
-		
-	}
+	[SerializeField]
+	float detectDepth;
+
+	[SerializeField]
+	Vector3 detectOffset;
+
+	public event Action<Collider> OnTouchGround;
+	public event Action<Collider> OnStayGround;
+	public event Action<Collider> OnLeaveGround;
 	
-	// Update is called once per frame
-	void Update () {
-		
+	Collider lastGround;
+
+	private void FixedUpdate()
+	{
+		var originPoint = transform.position + detectOffset;
+		RaycastHit hit;
+		if (Physics.Raycast(originPoint, Vector3.down, out hit, detectDepth, detectMask.value))
+		{
+			if (!lastGround)
+				OnTouchGround?.Invoke(hit.collider);
+
+			lastGround = hit.collider;
+			
+			OnStayGround?.Invoke(hit.collider);
+		}
+		else
+		{
+			OnLeaveGround?.Invoke(lastGround);
+			lastGround = null;
+		}
 	}
 }
