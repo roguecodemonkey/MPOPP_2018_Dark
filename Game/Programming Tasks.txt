@@ -1,0 +1,70 @@
+Sonar:
+	Generate a light wave to show the surrounding objects
+	Enhanced visual effect?
+		Mesh?
+			Shows the mesh of the object instead of just light
+		After glow?
+			The object will glow for a certain time before dimed
+	Refresh position
+
+Interactable object:
+	InteractionTrigger:
+		An object that player can interact with, which can trigger other object. e.g. ObjectTranslator
+		InteractingMode:
+			Once, // Use one to trigger
+			Hold, // Hold for certain time to trigger
+			
+		TriggeringMode:
+			Once, // Trigger once
+			Switch, // Turn on or off. when on, keep triggering
+			Timer, // Push once to turn on, turn off after certain time
+			
+		Events:
+		OnInterationStart // Call when player start interacting with the object
+		OnInterationContinue // Call when player interacting with the object
+		OnInterationEnd // Call when player stop ineracting with the object
+		OnTriggerOn // Call when the condition of triggering satisfied
+		OnTriggerOff // Call when the condition of triggering became unsatisfied
+			
+	
+ObjectTranslator:(Can be replaced by animations)
+	Change the position/rotation of an object
+	Use a speed curve/curve of percentage
+	Move modes:
+		Once, // Move to Point B and nothing more
+		Repeat, // Move to Point B and then start over
+		PingPong, // Move to Point B and then move back to Point A
+		
+	Events:
+	OnBeginMoving
+	OnMoving
+	OnStopMoving
+	OnReachedTargetA
+	OnReachedTargetB
+
+GlobalSetting:
+	Audio?
+		Music
+		SoundEffect
+	MouseSensitiveness
+	Lightness?
+
+PlayerControllor:
+	Interact with interactable objects.
+	Control an ObjectTranslator(recommend), or
+	Maintain the transform/movement by itself
+	Run, crouch, jump
+	
+UI:
+	Main menu(start menu)
+		Start game
+		Settings
+		Quit
+	Ingame(hud?)
+		Message box
+			One at a time, press any/specific key to continue
+			
+		Interactable notice
+
+Camera Effects:
+	
