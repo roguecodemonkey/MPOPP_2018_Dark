@@ -23,6 +23,7 @@ public class GroundDetector : MonoBehaviour
 
 	private void FixedUpdate()
 	{
+		Debug.DrawRay(transform.position + detectOffset, Vector3.down * detectDepth, Color.yellow);
 		var originPoint = transform.position + detectOffset;
 		RaycastHit hit;
 		if (Physics.Raycast(originPoint, Vector3.down, out hit, detectDepth, detectMask.value))

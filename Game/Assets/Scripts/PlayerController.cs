@@ -19,6 +19,9 @@ public class PlayerController : MonoBehaviour
 	float crouchHeight;
 
 	[SerializeField]
+	Transform cameraPivot;
+
+	[SerializeField]
 	float crouchSpeedMultiplier;
 
 	[SerializeField]
@@ -33,10 +36,11 @@ public class PlayerController : MonoBehaviour
 
 	bool isAirborne;
 	bool isCrouching;
-
+	
 	float crouchPercentage;
 	float origColliderHeight;
 	Vector3 origColliderCenter;
+	Vector3 origCameraPivotPos;
 
 	private void Awake()
 	{
@@ -49,6 +53,7 @@ public class PlayerController : MonoBehaviour
 		crouchPercentage = crouchHeight / bodyCollider.height;
 		origColliderHeight = bodyCollider.height;
 		origColliderCenter = bodyCollider.center;
+		origCameraPivotPos = cameraPivot.localPosition;
 
 		ground.OnTouchGround += _onTouchGround;
 		ground.OnLeaveGround += _onLeaveGround;
@@ -58,9 +63,13 @@ public class PlayerController : MonoBehaviour
 	{
 		Jump();
 		Crouch();
-		MovePlayer();
 		UseSonar();
     }
+
+	private void FixedUpdate()
+	{
+		MovePlayer();
+	}
 
 	private void UseSonar()
 	{
@@ -82,8 +91,10 @@ public class PlayerController : MonoBehaviour
 
 		if (isCrouching)
 			moveDir *= crouchSpeedMultiplier;
+		moveDir = transform.TransformDirection(moveDir);
 
-		transform.Translate(moveDir);
+		rigidbody.MovePosition(transform.position + moveDir);
+		//transform.Translate(moveDir);
 	}
 
 	private void Jump()
@@ -103,6 +114,7 @@ public class PlayerController : MonoBehaviour
 			isCrouching = true;
 			bodyCollider.height = origColliderHeight * crouchPercentage;
 			bodyCollider.center = origColliderCenter * crouchPercentage;
+			cameraPivot.localPosition = origCameraPivotPos * crouchPercentage;
 		}
 		else
 		{
@@ -110,6 +122,7 @@ public class PlayerController : MonoBehaviour
 			isCrouching = false;
 			bodyCollider.height = origColliderHeight;
 			bodyCollider.center = origColliderCenter;
+			cameraPivot.localPosition = origCameraPivotPos;
 		}
 	}
 

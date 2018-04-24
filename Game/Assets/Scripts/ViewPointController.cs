@@ -49,7 +49,6 @@ namespace ElementWar
 		
 		void Awake()
 		{
-			//GameManager.LockCursor = lockCursor;
 			if (cameraPivot) return;
 			Debug.LogWarning(name + ": Haven't assiged camera pivot!!! This ViewPointController will be disabled.");
 			enabled = false;
@@ -57,6 +56,12 @@ namespace ElementWar
 
 		void Update()
 		{
+			// Temporary
+			if (Input.GetKeyDown(KeyCode.K))
+				lockCursor = !lockCursor;
+
+			Cursor.lockState = lockCursor ? CursorLockMode.Locked : CursorLockMode.None;
+			Cursor.visible = !lockCursor;
 			//Zoom();
 			MoveCamera();
 		}
