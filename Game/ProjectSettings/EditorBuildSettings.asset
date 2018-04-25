@@ -4,4 +4,10 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/MainMenu.unity
+    guid: 8acd83f039ce3a848b21875565fa8e28
+  - enabled: 1
+    path: Assets/Scenes/John's test ground.unity
+    guid: ff5a0e12caf4b2247ae39165d09b0e64
