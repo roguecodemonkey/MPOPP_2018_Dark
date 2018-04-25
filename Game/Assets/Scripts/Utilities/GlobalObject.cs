@@ -173,39 +173,7 @@ namespace UnityUtility
 
 		private void Awake()
 		{
-			print("Awake");
 			DontDestroyOnLoad(this.gameObject);
-		}
-
-		private void Start()
-		{
-			print("Start");
-		}
-
-		private void OnEnable()
-		{
-			print("OnEnable");
-		}
-
-		private void OnDisable()
-		{
-			print("OnDisable");
-		}
-
-		private void OnApplicationFocus(bool focus)
-		{
-			print("OnApplicationFocus: " + focus);
-		}
-
-		private void OnApplicationPause(bool pause)
-		{
-			print("OnApplicationPause: " + pause);
-		}
-
-		private void OnApplicationQuit()
-		{
-			//SaveState();
-			print("OnApplicationQuit");
 		}
 	}
 }
