@@ -1,37 +1,47 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
-public enum InteractionMode
-{
-	Once, // Use one to trigger
-	Hold, // Hold for certain time to trigger
-}
-
-public enum TriggeringMode
-{
-	Once, // Trigger once
-	Switch, // Turn on or off. when on, keep triggering
-	Timer, // Push once to turn on, turn off after certain time
-}
 
 public interface IInteractable
 {
+	/// <summary>
+	/// Wether this object is being interacting.
+	/// </summary>
+	bool IsInteracting { get; }
+
+	/// <summary>
+	/// Wether this object is Activated.
+	/// </summary>
+	bool IsActivated { get; }
+
+	/// <summary>
+	/// Calls when interaction start.
+	/// </summary>
 	event Action OnStartInteracting;
+
+	/// <summary>
+	/// Calls when interaction keep on.
+	/// </summary>
 	event Action OnKeepInteracting;
+
+	/// <summary>
+	/// Calls when interaction end.
+	/// </summary>
 	event Action OnStopInteracting;
+	
+	/// <summary>
+	/// Keeps calling while this object is activated.
+	/// </summary>
+	event Action OnActivated;
 
-	void Interact();
-}
+	/// <summary>
+	/// Keeps calling while this object is deactivated.
+	/// </summary>
+	event Action OnDeactivated;
+	
 
-public abstract class MonoInteractableObject : MonoBehaviour, IInteractable
-{
-	public event Action OnStartInteracting;
-	public event Action OnKeepInteracting;
-	public event Action OnStopInteracting;
-
-	public void Interact()
-	{
-		
-	}
+	void StartInteracting();
+	void StopInteracting();
 }
