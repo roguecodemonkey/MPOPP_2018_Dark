@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Carry : MonoBehaviour {
     GameObject mainCamera;
@@ -8,6 +9,9 @@ public class Carry : MonoBehaviour {
     GameObject carriedObject;
     public float distance;
     public float smooth;
+
+
+
 
     Quaternion origRotation;
 
@@ -18,6 +22,7 @@ public class Carry : MonoBehaviour {
 
     private void Update()
     {
+        
         if (carrying)
         {
             carry(carriedObject);
@@ -44,6 +49,7 @@ public class Carry : MonoBehaviour {
             RaycastHit hit;
             if(Physics.Raycast(ray,out hit))
             {
+              
                 Pickupable p = hit.collider.GetComponent<Pickupable>();
                 if(p!= null)
                 {
@@ -52,6 +58,8 @@ public class Carry : MonoBehaviour {
                     p.gameObject.GetComponent<Rigidbody>().useGravity = false;
                     p.transform.SetParent(transform);
                 }
+
+
             }
         }
     }
