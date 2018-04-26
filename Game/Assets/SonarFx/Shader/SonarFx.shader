@@ -43,6 +43,7 @@ Shader "Hidden/SonarFX"
         struct Input
         {
             float3 worldPos;
+			float4 color : COLOR;
         };
 
         float3 _SonarBaseColor;
@@ -77,6 +78,7 @@ Shader "Hidden/SonarFX"
             // Apply to the surface.
             o.Albedo = _SonarBaseColor;
             o.Emission = _SonarWaveColor * w + _SonarAddColor;
+			o.Alpha = 1;
         }
 
         ENDCG

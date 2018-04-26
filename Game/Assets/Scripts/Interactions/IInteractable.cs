@@ -33,12 +33,12 @@ namespace Interactions
 		event Action OnStopInteracting;
 
 		/// <summary>
-		/// Keeps calling while this object is activated.
+		/// Calls when this object is activated.
 		/// </summary>
 		event Action OnActivated;
 
 		/// <summary>
-		/// Keeps calling while this object is deactivated.
+		/// Calls when while this object is deactivated.
 		/// </summary>
 		event Action OnDeactivated;
 

@@ -16,14 +16,16 @@ namespace Interactions
 		public override void StartInteracting() { }
 
 		public override void StopInteracting() { }
-
-		private void Interacting()
+		
+		protected override void Update()
 		{
 			if (pressingObjects.Count > 0)
 			{
 				if (!isInteracting)
 				{
 					InvokeStartInteracting();
+					InvokeActivated();
+					onActivated?.Invoke();
 				}
 
 				isActivated = true;
@@ -36,6 +38,8 @@ namespace Interactions
 				if (isInteracting)
 				{
 					InvokeStopInteracting();
+					InvokeDeactivated();
+					onDeactivated?.Invoke();
 				}
 
 				isActivated = false;
@@ -43,24 +47,10 @@ namespace Interactions
 			}
 		}
 
-		protected override void Update()
-		{
-			Interacting();
-			if (isActivated)
-			{
-				InvokeActivated();
-				onActivated?.Invoke();
-			}
-			else
-			{
-				InvokeDeactivated();
-				onDeactivated?.Invoke();
-			}
-		}
-
 		protected virtual void OnTriggerEnter(Collider collider)
 		{
-			if (((1 << collider.gameObject.layer) & affetcableLayer) != 0)
+			if (((1 << collider.gameObject.layer) & affetcableLayer) != 0 &&
+				!pressingObjects.Contains(collider.gameObject))
 			{
 				pressingObjects.Add(collider.gameObject);
 			}
@@ -68,7 +58,8 @@ namespace Interactions
 
 		protected virtual void OnTriggerExit(Collider collider)
 		{
-			if (((1 << collider.gameObject.layer) & affetcableLayer) != 0)
+			if (((1 << collider.gameObject.layer) & affetcableLayer) != 0 &&
+				pressingObjects.Contains(collider.gameObject))
 			{
 				pressingObjects.Remove(collider.gameObject);
 			}

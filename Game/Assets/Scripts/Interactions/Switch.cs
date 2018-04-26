@@ -15,16 +15,16 @@ namespace Interactions
 			}
 
 			isActivated = !isActivated;
-            if (isActivated)
-            {
-                InvokeActivated();
-                onActivated?.Invoke();
-            }
-            else
-            {
-                InvokeDeactivated();
-                onDeactivated?.Invoke();
-            }
+			if (isActivated)
+			{
+				InvokeActivated();
+				onActivated?.Invoke();
+			}
+			else
+			{
+				InvokeDeactivated();
+				onDeactivated?.Invoke();
+			}
 
 			isInteracting = true;
 		}
