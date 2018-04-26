@@ -48,13 +48,13 @@ namespace Interactions
 
 			if (isActivated)
 			{
-				InvokeActivated();
-				onActivated?.Invoke();
+				//InvokeActivated();
+				//onActivated?.Invoke();
 			}
 			else
 			{
-				InvokeDeactivated();
-				onDeactivated?.Invoke();
+				//InvokeDeactivated();
+				//onDeactivated?.Invoke();
 			}
 		}
 	}
