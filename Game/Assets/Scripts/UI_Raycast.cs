@@ -27,7 +27,7 @@ public class RaycastTest : MonoBehaviour {
         RaycastHit hit;
         if(Physics.Raycast(transform.position,transform.TransformDirection(Vector3.forward),out hit, MaxDistance, layerMask))
         {
-            // Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * hit.distance, Color.yellow);
+            Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * hit.distance, Color.yellow);
             if (hit.transform.name == usable_layer)
                 mention.enabled = true;
             else

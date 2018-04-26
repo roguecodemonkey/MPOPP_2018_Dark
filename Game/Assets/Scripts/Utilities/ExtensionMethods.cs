@@ -8,6 +8,15 @@ namespace UnityUtility
 {
 	public static class ExtensionMethods
 	{
+		/// <summary>
+		/// Checks whether a Unity object exists; i.e. it hasn't been destroyed
+		/// </summary>
+		/// <remarks>
+		/// Unlike the normal null check, this will return <c>true</c> for objects
+		/// that have been merely disabled.
+		/// </remarks>
+		/// <param name="obj"></param>
+		/// <returns><c>true</c> if the object exists, otherwise <c>false</c></returns>
 		public static bool IsExists(this object obj)
 		{
 			if (obj == null)
@@ -24,6 +33,11 @@ namespace UnityUtility
 			return exists;
 		}
 
+		/// <summary>
+		/// Gets component from another component if it has one, and adds one if it doesn't
+		/// </summary>
+		/// <param name="obj"></param>
+		/// <returns><c>true</c> if the object exists, otherwise <c>false</c></returns>
 		public static T GetOrAddComponent<T>(this Component c) where T : Component
 		{
 			if (c == null) throw new ArgumentNullException("The operational component is null!");
@@ -32,6 +46,53 @@ namespace UnityUtility
 				part = c.gameObject.AddComponent<T>();
 
 			return part;
+		}
+
+		/// <summary>
+		/// Returns the square of the given number
+		/// </summary>
+		/// <param name="num"></param>
+		/// <returns></returns>
+		public static float Square(this float num)
+		{
+			return num * num;
+		}
+
+		/// <summary>
+		/// Clamps an angle between -180 and +180
+		/// </summary>
+		/// <param name="angle"></param>
+		/// <returns></returns>
+		public static float Clamp180(this float angle)
+		{
+			if (angle > 180f)
+				angle -= 360f;
+			else if (angle < -180f)
+				angle += 360f;
+			return angle;
+		}
+
+		/// <summary>
+		/// Clamps an euler rotation between -180 and +180
+		/// </summary>
+		/// <param name="angle"></param>
+		/// <returns></returns>
+		public static Vector3 Clamp180(this Vector3 angle)
+		{
+			return new Vector3(angle.x.Clamp180(),
+				angle.y.Clamp180(),
+				angle.z.Clamp180());
+		}
+
+		/// <summary>
+		/// Clamps an euler rotation between -180 and +180
+		/// </summary>
+		/// <param name="angle"></param>
+		/// <returns></returns>
+		public static Vector2 Clamp180(this Vector2 angle)
+		{
+			return new Vector2(angle.x.Clamp180(),
+				angle.y.Clamp180());
 		}
 
 		// From TOMS...

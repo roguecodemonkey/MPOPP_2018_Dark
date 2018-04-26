@@ -1,4 +1,4 @@
-Sonar:
+Sonar:(Done)
 	Generate a light wave to show the surrounding objects
 	Enhanced visual effect?
 		Mesh?
@@ -49,7 +49,7 @@ GlobalSetting:
 	MouseSensitiveness
 	Lightness?
 
-PlayerControllor:
+PlayerControllor:(Mostly done)
 	Interact with interactable objects.
 	Control an ObjectTranslator(recommend), or
 	Maintain the transform/movement by itself
@@ -61,10 +61,10 @@ UI:
 		Settings
 		Quit
 	Ingame(hud?)
-		Message box
+		Message box(On hiatus)
 			One at a time, press any/specific key to continue
 			
-		Interactable notice
+		Interactable notice(Mostly done)
 
 Camera Effects:
 	
