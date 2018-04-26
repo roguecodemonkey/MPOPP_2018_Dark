@@ -33,15 +33,6 @@ namespace ElementWar
 		float defaultFov;
 
 		[SerializeField]
-		float zoomFov;
-
-		[SerializeField]
-		float zoomInSpeed;
-
-		[SerializeField]
-		float zoomInMouseSpeedMultiplier;
-
-		[SerializeField]
 		bool lockCursor;
 
 		[SerializeField]
@@ -49,8 +40,6 @@ namespace ElementWar
 
 		float lookAngle;
 		float tiltAngle;
-
-		bool aiming;
 
 		#endregion
 
@@ -81,9 +70,6 @@ namespace ElementWar
 				mouseMovement.Normalize();
 
 			mouseMovement.Scale(new Vector2(turnSpeed, tiltSpeed));
-
-			if (aiming)
-				mouseMovement *= zoomInMouseSpeedMultiplier;
 
 			RotateXAxis(mouseMovement.y);
 			RotateYAxis(mouseMovement.x);
