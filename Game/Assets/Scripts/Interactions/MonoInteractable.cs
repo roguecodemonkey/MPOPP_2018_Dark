@@ -43,19 +43,16 @@ namespace Interactions
 		{
 			if (isInteracting)
 			{
-				print("KeepInteracting");
 				InvokeKeepInteracting();
 			}
 
 			if (isActivated)
 			{
-				print("Activated");
 				InvokeActivated();
 				onActivated?.Invoke();
 			}
 			else
 			{
-				print("Deactivated");
 				InvokeDeactivated();
 				onDeactivated?.Invoke();
 			}

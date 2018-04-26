@@ -11,7 +11,6 @@ namespace Interactions
 		{
 			if (!isInteracting)
 			{
-				print("StartInteracting");
 				InvokeStartInteracting();
 			}
 
@@ -23,7 +22,6 @@ namespace Interactions
 		{
 			if (isInteracting)
 			{
-				print("StopInteracting");
 				InvokeStopInteracting();
 			}
 

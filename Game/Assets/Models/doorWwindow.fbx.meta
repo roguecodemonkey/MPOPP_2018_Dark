@@ -1,46 +1,16 @@
 fileFormatVersion: 2
-guid: c708ab96136b17f408a601d38e20a2ab
-timeCreated: 1524637889
+guid: c1972f17c0e88744da23a47fbf409578
+timeCreated: 1524712031
 licenseType: Free
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
-    100000: bottom
-    100002: //RootNode
-    100004: pPipe1
-    100006: pPipe2
-    100008: pPipe3
-    100010: pPipe4
-    100012: pPipe5
-    100014: pPlane1
-    100016: pPlane2
-    100018: transform1
-    100020: transform2
-    100022: transform3
-    100024: transform4
-    100026: transform5
-    100028: transform6
-    400000: bottom
-    400002: //RootNode
-    400004: pPipe1
-    400006: pPipe2
-    400008: pPipe3
-    400010: pPipe4
-    400012: pPipe5
-    400014: pPlane1
-    400016: pPlane2
-    400018: transform1
-    400020: transform2
-    400022: transform3
-    400024: transform4
-    400026: transform5
-    400028: transform6
-    2000000: bottom
-    2100000: lambert1
-    2300000: pPlane2
-    3300000: pPlane2
-    4300000: pPlane2
-    9500000: //RootNode
+    100000: //RootNode
+    400000: //RootNode
+    2100000: No Name
+    2300000: //RootNode
+    3300000: //RootNode
+    4300000: doorwithwin
   externalObjects: {}
   materials:
     importMaterials: 1
@@ -71,7 +41,7 @@ ModelImporter:
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: 2.5
+    globalScale: 1
     meshCompression: 0
     addColliders: 0
     importVisibility: 1
@@ -115,7 +85,7 @@ ModelImporter:
     hasExtraRoot: 0
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 2
+  animationType: 0
   humanoidOversampling: 1
   additionalBone: 0
   userData: 

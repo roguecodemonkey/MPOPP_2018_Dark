@@ -7,14 +7,71 @@ namespace Interactions
 {
 	public class PressPlate : MonoInteractable
 	{
-		public override void StartInteracting()
+		[SerializeField]
+		LayerMask affetcableLayer;
+
+		[SerializeField]
+		List<GameObject> pressingObjects;
+
+		public override void StartInteracting() { }
+
+		public override void StopInteracting() { }
+
+		private void Interacting()
 		{
-			throw new NotImplementedException();
+			if (pressingObjects.Count > 0)
+			{
+				if (!isInteracting)
+				{
+					InvokeStartInteracting();
+				}
+
+				isActivated = true;
+				isInteracting = true;
+
+				InvokeKeepInteracting();
+			}
+			else
+			{
+				if (isInteracting)
+				{
+					InvokeStopInteracting();
+				}
+
+				isActivated = false;
+				isInteracting = false;
+			}
 		}
 
-		public override void StopInteracting()
+		protected override void Update()
 		{
-			throw new NotImplementedException();
+			Interacting();
+			if (isActivated)
+			{
+				InvokeActivated();
+				onActivated?.Invoke();
+			}
+			else
+			{
+				InvokeDeactivated();
+				onDeactivated?.Invoke();
+			}
+		}
+
+		protected virtual void OnTriggerEnter(Collider collider)
+		{
+			if (((1 << collider.gameObject.layer) & affetcableLayer) != 0)
+			{
+				pressingObjects.Add(collider.gameObject);
+			}
+		}
+
+		protected virtual void OnTriggerExit(Collider collider)
+		{
+			if (((1 << collider.gameObject.layer) & affetcableLayer) != 0)
+			{
+				pressingObjects.Remove(collider.gameObject);
+			}
 		}
 	}
 }
