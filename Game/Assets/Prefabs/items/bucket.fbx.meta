@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: bd2a4474b39b29c448d786c14921a7fa
-timeCreated: 1524713214
+guid: 5e9a2088afff2f74fb35886dcbf0c448
+timeCreated: 1524722493
 licenseType: Free
 ModelImporter:
   serializedVersion: 22
@@ -10,8 +10,7 @@ ModelImporter:
     2100000: No Name
     2300000: //RootNode
     3300000: //RootNode
-    4300000: barrier
-    4300002: Cube.001
+    4300000: Cylinder
   externalObjects: {}
   materials:
     importMaterials: 1
@@ -50,7 +49,7 @@ ModelImporter:
     importCameras: 1
     importLights: 1
     swapUVChannels: 0
-    generateSecondaryUV: 1
+    generateSecondaryUV: 0
     useFileUnits: 1
     optimizeMeshForGPU: 1
     keepQuads: 0
@@ -64,7 +63,7 @@ ModelImporter:
     useFileScale: 1
   tangentSpace:
     normalSmoothAngle: 60
-    normalImportMode: 1
+    normalImportMode: 0
     tangentImportMode: 3
     normalCalculationMode: 4
   importAnimation: 1
