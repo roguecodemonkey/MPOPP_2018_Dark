@@ -6,6 +6,8 @@ namespace ElementWar
 {
 	public class ViewPointController : MonoBehaviour
 	{
+		#region Fields
+
 		[SerializeField]
 		Transform cameraPivot;
 
@@ -42,45 +44,37 @@ namespace ElementWar
 		[SerializeField]
 		bool lockCursor;
 
+		[SerializeField]
+		bool frozen;
+
 		float lookAngle;
 		float tiltAngle;
 
 		bool aiming;
-		
-		void Awake()
-		{
-			if (cameraPivot) return;
-			Debug.LogWarning(name + ": Haven't assiged camera pivot!!! This ViewPointController will be disabled.");
-			enabled = false;
-        }
 
-		void Update()
-		{
-			// Temporary
-			if (Input.GetKeyDown(KeyCode.K))
-				lockCursor = !lockCursor;
+		#endregion
 
-			Cursor.lockState = lockCursor ? CursorLockMode.Locked : CursorLockMode.None;
-			Cursor.visible = !lockCursor;
-			//Zoom();
-			MoveCamera();
+		#region Properties
+
+		/// <summary>
+		/// Stop the view point from moving
+		/// </summary>
+		public bool Frozen
+		{
+			get { return frozen; }
+			set { frozen = value; }
 		}
 
-		void Zoom()
-		{
-			aiming = Input.GetButton("Fire2");
-			if (aiming)
-			{
-				Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, zoomFov, zoomInSpeed * Time.deltaTime);
-			}
-			else
-			{
-				Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, defaultFov, zoomInSpeed * Time.deltaTime);
-			}
-		}
+		#endregion
 
+		#region Methods
+
+		/// <summary>
+		/// Moving the camera around a few specific axes
+		/// </summary>
 		void MoveCamera()
 		{
+			if (frozen) return;
 			Vector2 mouseMovement = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
 
 			if (mouseMovement.sqrMagnitude > 1)
@@ -123,6 +117,32 @@ namespace ElementWar
 			else
 				cameraPivot.localRotation = targetRotation;
 		}
+
+		#endregion
+
+		#region Unity messages
+
+		void Awake()
+		{
+			if (cameraPivot) return;
+			Debug.LogWarning(name + ": Haven't assiged camera pivot!!! This ViewPointController will be disabled.");
+			enabled = false;
+		}
+
+		void Update()
+		{
+			// Temporary
+			if (Input.GetKeyDown(KeyCode.K))
+				lockCursor = !lockCursor;
+
+			Cursor.lockState = lockCursor ? CursorLockMode.Locked : CursorLockMode.None;
+			Cursor.visible = !lockCursor;
+
+			MoveCamera();
+		}
+
+		#endregion
+		
 	}
 }
 

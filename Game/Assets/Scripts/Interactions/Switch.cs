@@ -5,35 +5,14 @@ using UnityEngine.Events;
 
 namespace Interactions
 {
-	public class Switch : MonoBehaviour, IInteractable
+	public class Switch : MonoInteractable
 	{
-		[SerializeField]
-		protected bool isInteracting;
-
-		[SerializeField]
-		protected bool isActivated;
-
-		[SerializeField]
-		protected UnityEvent onActivated;
-
-		[SerializeField]
-		protected UnityEvent onDeactivated;
-
-		public virtual bool IsInteracting => isInteracting;
-		public virtual bool IsActivated => isActivated;
-
-		public virtual event Action OnStartInteracting;
-		public virtual event Action OnKeepInteracting;
-		public virtual event Action OnStopInteracting;
-
-		public virtual event Action OnActivated;
-		public virtual event Action OnDeactivated;
-
-		public void StartInteracting()
+		public override void StartInteracting()
 		{
 			if (!isInteracting)
 			{
-				OnStartInteracting?.Invoke();
+				print("StartInteracting");
+				InvokeStartInteracting();
 			}
 
 			isActivated = !isActivated;
@@ -41,33 +20,15 @@ namespace Interactions
 			isInteracting = true;
 		}
 
-		public void StopInteracting()
+		public override void StopInteracting()
 		{
 			if (isInteracting)
 			{
-				OnStopInteracting?.Invoke();
+				print("StopInteracting");
+				InvokeStopInteracting();
 			}
 
 			isInteracting = false;
-		}
-
-		protected virtual void Update()
-		{
-			if (isInteracting)
-			{
-				OnKeepInteracting?.Invoke();
-			}
-
-			if (isActivated)
-			{
-				OnActivated?.Invoke();
-				onActivated?.Invoke();
-			}
-			else
-			{
-				OnDeactivated?.Invoke();
-				onDeactivated?.Invoke();
-			}
 		}
 	}
 }
