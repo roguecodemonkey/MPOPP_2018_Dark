@@ -5,7 +5,7 @@ using UnityEngine.Events;
 
 namespace Interactions
 {
-	public class Switch : MonoInteractable
+	public class Button : MonoInteractable
 	{
 		public override void StartInteracting()
 		{
@@ -15,8 +15,7 @@ namespace Interactions
 				InvokeStartInteracting();
 			}
 
-			isActivated = !isActivated;
-
+			isActivated = true;
 			isInteracting = true;
 		}
 
@@ -28,6 +27,7 @@ namespace Interactions
 				InvokeStopInteracting();
 			}
 
+			isActivated = false;
 			isInteracting = false;
 		}
 	}
