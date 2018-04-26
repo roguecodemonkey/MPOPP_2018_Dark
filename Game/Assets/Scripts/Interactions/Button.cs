@@ -12,6 +12,8 @@ namespace Interactions
 			if (!isInteracting)
 			{
 				InvokeStartInteracting();
+				InvokeActivated();
+				onActivated?.Invoke();
 			}
 
 			isActivated = true;
@@ -23,6 +25,8 @@ namespace Interactions
 			if (isInteracting)
 			{
 				InvokeStopInteracting();
+				InvokeDeactivated();
+				onDeactivated?.Invoke();
 			}
 
 			isActivated = false;

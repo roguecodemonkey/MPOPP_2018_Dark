@@ -56,8 +56,7 @@ public class Carrier : MonoBehaviour
             if (Physics.Raycast(ray, out hit, pickupDistance))
             {
 				var p = hit.collider;
-
-				print(p.gameObject.name);
+				
 				if (p.gameObject.layer != LayerMask.NameToLayer("Pickupable"))
 					return;
 

@@ -32,14 +32,16 @@ public class InteractableDetector : MonoBehaviour
 		if (Physics.Raycast(ray, out hit, maxDistance, raycasrMask))
 		{
 			var obj = hit.collider.GetComponent<IInteractable>();
-			if (obj != null)
-			{
-				interactableObject = obj;
-				OnDetectionEnter?.Invoke(interactableObject);
-			}
-			else
-			{
 
+			if (obj == interactableObject) return;
+
+			if (interactableObject != null)
+				OnDetectionExit?.Invoke(interactableObject);
+
+			interactableObject = obj;
+			if (interactableObject != null)
+			{
+				OnDetectionEnter?.Invoke(interactableObject);
 			}
 		}
 	}

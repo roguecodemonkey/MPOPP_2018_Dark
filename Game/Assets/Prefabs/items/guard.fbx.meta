@@ -18,6 +18,8 @@ ModelImporter:
     3300002: tall_head
     4300000: short_head
     4300002: tall_head
+    6400000: short_head
+    6400002: tall_head
   externalObjects: {}
   materials:
     importMaterials: 1
@@ -50,7 +52,7 @@ ModelImporter:
     lODScreenPercentages: []
     globalScale: 1
     meshCompression: 0
-    addColliders: 0
+    addColliders: 1
     importVisibility: 1
     importBlendShapes: 1
     importCameras: 1
