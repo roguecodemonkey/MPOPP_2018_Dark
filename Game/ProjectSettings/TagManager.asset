@@ -14,9 +14,9 @@ TagManager:
   - 
   - 
   - Ground
-  - Gear
+  - Interactable
   - Guard
-  - 
+  - Pickupable
   - 
   - 
   - 

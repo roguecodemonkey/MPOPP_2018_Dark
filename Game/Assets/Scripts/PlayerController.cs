@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityUtility;
+using Interactions;
+
 
 [RequireComponent(typeof(GroundDetector))]
 [RequireComponent(typeof(CapsuleCollider))]
@@ -27,6 +29,9 @@ public class PlayerController : MonoBehaviour
 	[SerializeField]
 	float sonarCooldown;
 
+	[SerializeField]
+	float interactingDistance;
+
 	GroundDetector ground;
 	CapsuleCollider bodyCollider;
 	new Rigidbody rigidbody;
@@ -36,7 +41,7 @@ public class PlayerController : MonoBehaviour
 
 	bool isAirborne;
 	bool isCrouching;
-	
+
 	float crouchPercentage;
 	float origColliderHeight;
 	Vector3 origColliderCenter;
@@ -59,21 +64,56 @@ public class PlayerController : MonoBehaviour
 		ground.OnLeaveGround += _onLeaveGround;
 	}
 
-	private void Update ()
+	private void Update()
 	{
 		Jump();
 		Crouch();
 		UseSonar();
-    }
+		Interacting();
+	}
 
 	private void FixedUpdate()
 	{
 		MovePlayer();
 	}
 
+	// TODO: move this function to another componenet.
+	private void Interacting()
+	{
+		if (Input.GetButtonDown("Interact"))
+		{
+			RaycastHit hit;
+			var ray = Camera.main.ViewportPointToRay(Vector3.one * 0.5f);
+
+			if (Physics.Raycast(ray, out hit, interactingDistance))
+			{
+				// 9 == gear layer
+				if (hit.collider.gameObject.layer != 9) return;
+
+				var interactable = hit.collider.GetComponent<IInteractable>();
+				interactable.StartInteracting();
+			}
+		}
+
+		if (Input.GetButtonUp("Interact"))
+		{
+			RaycastHit hit;
+			var ray = Camera.main.ViewportPointToRay(Vector3.one * 0.5f);
+
+			if (Physics.Raycast(ray, out hit, interactingDistance))
+			{
+				// 9 == gear layer
+				if (hit.collider.gameObject.layer != 9) return;
+
+				var interactable = hit.collider.GetComponent<IInteractable>();
+				interactable.StopInteracting();
+			}
+		}
+	}
+
 	private void UseSonar()
 	{
-		if (Input.GetButtonDown("Interact") && sonarTimer.IsReachedTime())
+		if (Input.GetButtonDown("Fire1") && sonarTimer.IsReachedTime())
 		{
 			sonarTimer.Start(sonarCooldown);
 			sonar.StartSonar();
@@ -136,4 +176,3 @@ public class PlayerController : MonoBehaviour
 		isAirborne = true;
 	}
 }
-
