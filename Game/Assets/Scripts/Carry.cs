@@ -11,6 +11,17 @@ public class Carry : MonoBehaviour {
     public float smooth;
 
 
+    [SerializeField]
+    float MaxDistance;
+
+    [SerializeField]
+    LayerMask layerMask;
+
+    [SerializeField]
+    LayerMask usable_layer;
+
+    
+     public GameObject mention;
 
 
     Quaternion origRotation;
@@ -22,7 +33,18 @@ public class Carry : MonoBehaviour {
 
     private void Update()
     {
-        
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, MaxDistance, layerMask))
+        {
+            Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * hit.distance, Color.black);
+            if ((1 << hit.transform.gameObject.layer & usable_layer) != 0)
+                mention.SetActive(true);
+            else
+                mention.SetActive(false);
+        }
+        else mention.SetActive(false);
+
+
         if (carrying)
         {
             carry(carriedObject);
@@ -32,6 +54,7 @@ public class Carry : MonoBehaviour {
         {
             pickup();
         }
+
     }
 
     void carry(GameObject o)

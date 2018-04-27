@@ -8,19 +8,15 @@ public class InteractableEvent : UnityEvent<IInteractable> { }
 
 public class InteractableDetector : MonoBehaviour
 {
-
 	[SerializeField]
 	float maxDistance;
 
 	[SerializeField]
 	LayerMask raycasrMask;
-
-	[SerializeField]
-	string usable_layer;
 	
-	public InteractableEvent OnDetectionEnter;
+	public InteractableEvent OnDetectionEnter = new InteractableEvent();
 
-	public InteractableEvent OnDetectionExit;
+	public InteractableEvent OnDetectionExit = new InteractableEvent();
 
 	IInteractable interactableObject;
 
@@ -32,14 +28,16 @@ public class InteractableDetector : MonoBehaviour
 		if (Physics.Raycast(ray, out hit, maxDistance, raycasrMask))
 		{
 			var obj = hit.collider.GetComponent<IInteractable>();
-			if (obj != null)
-			{
-				interactableObject = obj;
-				OnDetectionEnter?.Invoke(interactableObject);
-			}
-			else
-			{
 
+			if (obj == interactableObject) return;
+
+			if (interactableObject != null)
+				OnDetectionExit?.Invoke(interactableObject);
+
+			interactableObject = obj;
+			if (interactableObject != null)
+			{
+				OnDetectionEnter?.Invoke(interactableObject);
 			}
 		}
 	}

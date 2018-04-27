@@ -45,17 +45,6 @@ namespace Interactions
 			{
 				InvokeKeepInteracting();
 			}
-
-			if (isActivated)
-			{
-				InvokeActivated();
-				onActivated?.Invoke();
-			}
-			else
-			{
-				InvokeDeactivated();
-				onDeactivated?.Invoke();
-			}
 		}
 	}
 }
