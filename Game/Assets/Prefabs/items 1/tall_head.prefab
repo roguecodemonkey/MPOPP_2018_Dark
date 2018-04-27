@@ -37,7 +37,9 @@ GameObject:
   - component: {fileID: 4788315167741054}
   - component: {fileID: 33106631009513786}
   - component: {fileID: 23114466989081984}
+  - component: {fileID: 114587321044699752}
   - component: {fileID: 82674436842807230}
+  - component: {fileID: 114576866251179172}
   m_Layer: 0
   m_Name: tall_head
   m_TagString: Untagged
@@ -229,3 +231,43 @@ Light:
   m_UseColorTemperature: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &114576866251179172
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1663090141041730}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25080e977e70bcb4989e7a81e7f43b52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  vectorTarget: {x: 0, y: 0, z: 0}
+  transformOffset: {x: 0, y: 0, z: 0}
+  minDistance: 0.001
+  maxVelocity: 8
+  minVelocity: 0.001
+  maxRotationVelocity: 5
+  useRigidBody: 0
+  useGlobalOffset: 0
+  parentImmediately: 0
+--- !u!114 &114587321044699752
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1663090141041730}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6eb3d4ff394aa1469b8fcf19ce622f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  viewRange: 2
+  viewAngle: 30
+  OnPlayerDetected:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  PatrolRoute: []

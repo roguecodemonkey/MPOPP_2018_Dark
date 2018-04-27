@@ -58,7 +58,7 @@ public class PlayerController : MonoBehaviour
 		sonar = GetComponent<SonarFx>();
 		sonarTimer = new Timer();
 
-		interact.OnDetectionEnter.AddListener();
+		//interact.OnDetectionEnter.AddListener();
 		crouchPercentage = crouchHeight / bodyCollider.height;
 		origColliderHeight = bodyCollider.height;
 		origColliderCenter = bodyCollider.center;
