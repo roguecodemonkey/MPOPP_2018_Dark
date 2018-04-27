@@ -8,15 +8,11 @@ public class InteractableEvent : UnityEvent<IInteractable> { }
 
 public class InteractableDetector : MonoBehaviour
 {
-
 	[SerializeField]
 	float maxDistance;
 
 	[SerializeField]
 	LayerMask raycasrMask;
-
-	[SerializeField]
-	string usable_layer;
 	
 	public InteractableEvent OnDetectionEnter;
 

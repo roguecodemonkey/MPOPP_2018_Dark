@@ -6,6 +6,7 @@ using Interactions;
 
 
 [RequireComponent(typeof(GroundDetector))]
+[RequireComponent(typeof(InteractableDetector))]
 [RequireComponent(typeof(CapsuleCollider))]
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(SonarFx))]
@@ -33,6 +34,7 @@ public class PlayerController : MonoBehaviour
 	float interactingDistance;
 
 	GroundDetector ground;
+	InteractableDetector interact;
 	CapsuleCollider bodyCollider;
 	new Rigidbody rigidbody;
 	SonarFx sonar;
@@ -50,11 +52,13 @@ public class PlayerController : MonoBehaviour
 	private void Awake()
 	{
 		ground = GetComponent<GroundDetector>();
+		interact = GetComponent<InteractableDetector>();
 		rigidbody = GetComponent<Rigidbody>();
 		bodyCollider = GetComponent<CapsuleCollider>();
 		sonar = GetComponent<SonarFx>();
 		sonarTimer = new Timer();
 
+		interact.OnDetectionEnter.AddListener();
 		crouchPercentage = crouchHeight / bodyCollider.height;
 		origColliderHeight = bodyCollider.height;
 		origColliderCenter = bodyCollider.center;
