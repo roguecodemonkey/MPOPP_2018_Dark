@@ -6,12 +6,12 @@ public class Background_move : MonoBehaviour {
     [SerializeField]
     GameObject Background;
     [SerializeField]
-    GameObject pos0;
+    GameObject Background1;
     [SerializeField]
-    GameObject pos1;
+    GameObject pos0;
 
     private Vector3 Background_position;
-
+    private int Background_num= 0;
 
 	// Use this for initialization
 	void Start () {
@@ -21,12 +21,7 @@ public class Background_move : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            Background_position = pos0.transform.position;
-            Background.transform.position = Background_position;
-            
-        }
-		
-	}
+    
+
+    }
 }

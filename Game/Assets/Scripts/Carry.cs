@@ -20,8 +20,8 @@ public class Carry : MonoBehaviour {
     [SerializeField]
     LayerMask usable_layer;
 
-    [SerializeField]
-    GameObject mention;
+    
+     public GameObject mention;
 
 
     Quaternion origRotation;
