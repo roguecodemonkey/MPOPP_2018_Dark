@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
+[RequireComponent(typeof(ObjectMover))]
 public class Guard : MonoBehaviour
 {
 	[SerializeField]
@@ -14,7 +15,13 @@ public class Guard : MonoBehaviour
 	[SerializeField]
 	UnityEvent OnPlayerDetected;
 
+	[SerializeField]
+	Transform[] PatrolRoute;
+
+	int currentPatrolPointIndex;
+
 	Transform player;
+	ObjectMover mover;
 
 	private void OnDrawGizmos()
 	{
@@ -25,6 +32,13 @@ public class Guard : MonoBehaviour
 
 	private void Awake()
 	{
+		mover = GetComponent<ObjectMover>();
+		if (PatrolRoute != null && PatrolRoute.Length > 0)
+		{
+			mover.OnChangeState += OnMoverStateChanged;
+			mover.Target = PatrolRoute[0];
+		}
+
 		player = GameObject.FindGameObjectWithTag("Player").transform;
 		if (!player)
 			this.enabled = false;
@@ -32,11 +46,16 @@ public class Guard : MonoBehaviour
 
 	private void Update()
 	{
+		LookingForPlayer();
+	}
+
+	private void LookingForPlayer()
+	{
 		var dir = player.position - this.transform.position;
 		if (dir.sqrMagnitude > viewRange * viewRange)
 			return;
 
-		if (Mathf.Abs(Vector3.Angle(transform.forward, dir)) > viewAngle/2)
+		if (Mathf.Abs(Vector3.Angle(transform.forward, dir)) > viewAngle / 2)
 			return;
 
 		RaycastHit hit;
@@ -47,6 +66,16 @@ public class Guard : MonoBehaviour
 
 		OnPlayerDetected?.Invoke();
 		print("Caught player");
+	}
+
+	private void OnMoverStateChanged(ObjectMover mover)
+	{
+		if (mover.IsMoving) return;
+
+		currentPatrolPointIndex++;
+		currentPatrolPointIndex = currentPatrolPointIndex >= PatrolRoute.Length ? 0 : currentPatrolPointIndex;
+
+		mover.Target = PatrolRoute[currentPatrolPointIndex];
 	}
 
 	private void OnCollisionEnter(Collision collision)
