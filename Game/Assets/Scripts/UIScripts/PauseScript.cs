@@ -40,6 +40,7 @@ public class PauseScript : MonoBehaviour {
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
+            
             if (PauseisActive)
             {
                 Resume();
