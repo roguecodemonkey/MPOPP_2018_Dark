@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 [RequireComponent(typeof(ObjectMover))]
 public class Guard : MonoBehaviour
 {
@@ -19,9 +20,12 @@ public class Guard : MonoBehaviour
 	Transform[] PatrolRoute;
 
 	int currentPatrolPointIndex;
-
+    
 	Transform player;
 	ObjectMover mover;
+
+    [SerializeField]
+    GameObject Dead;
 
 	private void OnDrawGizmos()
 	{
@@ -60,7 +64,12 @@ public class Guard : MonoBehaviour
 	private void Update()
 	{
 		LookingForPlayer();
-	}
+        if (Input.GetMouseButtonDown(0)&&Time.timeScale==0f)
+        {
+            Time.timeScale = 1f;
+            SceneManager.LoadScene("2nd floor");
+        }
+    }
 
 	private void LookingForPlayer()
 	{
@@ -79,7 +88,9 @@ public class Guard : MonoBehaviour
 
 		OnPlayerDetected?.Invoke();
 		print("Caught player");
-	}
+        Dead.SetActive(true);
+        Time.timeScale = 0f;
+    }
 
 	private void OnMoverStateChanged(ObjectMover mover)
 	{
@@ -97,6 +108,9 @@ public class Guard : MonoBehaviour
 		{
 			OnPlayerDetected?.Invoke();
 			print("Caught player");
-		}
+            Dead.SetActive(true);
+            Time.timeScale = 0f;
+        }
 	}
+    
 }
