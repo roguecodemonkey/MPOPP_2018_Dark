@@ -28,6 +28,19 @@ public class Guard : MonoBehaviour
 		Gizmos.color = Color.red;
 		Gizmos.DrawRay(transform.position, Quaternion.Euler(0, viewAngle / 2, 0) * transform.forward * viewRange);
 		Gizmos.DrawRay(transform.position, Quaternion.Euler(0, -viewAngle / 2, 0) * transform.forward * viewRange);
+
+		if (PatrolRoute != null && PatrolRoute.Length > 0)
+		{
+			for (int i = 0; i < PatrolRoute.Length; i ++)
+			{
+				Gizmos.color = Color.yellow;
+				Gizmos.DrawSphere(PatrolRoute[i].position, 0.2f);
+				var nextIndex = i + 1;
+				nextIndex = nextIndex >= PatrolRoute.Length ? 0 : nextIndex;
+				Gizmos.color = Color.red;
+				Gizmos.DrawLine(PatrolRoute[i].position, PatrolRoute[nextIndex].position);
+			}
+		}
 	}
 
 	private void Awake()

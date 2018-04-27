@@ -30,9 +30,6 @@ public class PlayerController : MonoBehaviour
 	[SerializeField]
 	float sonarCooldown;
 
-	[SerializeField]
-	float interactingDistance;
-
 	GroundDetector ground;
 	InteractableDetector interact;
 	CapsuleCollider bodyCollider;
@@ -49,6 +46,8 @@ public class PlayerController : MonoBehaviour
 	Vector3 origColliderCenter;
 	Vector3 origCameraPivotPos;
 
+	IInteractable interactableObj;
+
 	private void Awake()
 	{
 		ground = GetComponent<GroundDetector>();
@@ -58,7 +57,8 @@ public class PlayerController : MonoBehaviour
 		sonar = GetComponent<SonarFx>();
 		sonarTimer = new Timer();
 
-		interact.OnDetectionEnter.AddListener();
+		interact.OnDetectionEnter.AddListener(OnDetectionRaise);
+		interact.OnDetectionExit.AddListener(OnDetectionQuit);
 		crouchPercentage = crouchHeight / bodyCollider.height;
 		origColliderHeight = bodyCollider.height;
 		origColliderCenter = bodyCollider.center;
@@ -84,34 +84,14 @@ public class PlayerController : MonoBehaviour
 	// TODO: move this function to another componenet.
 	private void Interacting()
 	{
-		if (Input.GetButtonDown("Interact"))
+		if (Input.GetButtonDown("Interact") && interactableObj != null)
 		{
-			RaycastHit hit;
-			var ray = Camera.main.ViewportPointToRay(Vector3.one * 0.5f);
-
-			if (Physics.Raycast(ray, out hit, interactingDistance))
-			{
-				// 9 == gear layer
-				if (hit.collider.gameObject.layer != 9) return;
-
-				var interactable = hit.collider.GetComponent<IInteractable>();
-				interactable.StartInteracting();
-			}
+			interactableObj.StartInteracting();
 		}
 
-		if (Input.GetButtonUp("Interact"))
+		if (Input.GetButtonUp("Interact") && interactableObj != null)
 		{
-			RaycastHit hit;
-			var ray = Camera.main.ViewportPointToRay(Vector3.one * 0.5f);
-
-			if (Physics.Raycast(ray, out hit, interactingDistance))
-			{
-				// 9 == gear layer
-				if (hit.collider.gameObject.layer != 9) return;
-
-				var interactable = hit.collider.GetComponent<IInteractable>();
-				interactable.StopInteracting();
-			}
+			interactableObj.StopInteracting();
 		}
 	}
 
@@ -123,6 +103,18 @@ public class PlayerController : MonoBehaviour
 			sonar.StartSonar();
 		}
 	}
+
+	private void OnDetectionRaise(IInteractable obj)
+	{
+		interactableObj = obj;
+	}
+
+	private void OnDetectionQuit(IInteractable obj)
+	{
+		interactableObj.StopInteracting();
+		interactableObj = null;
+	}
+
 
 	private void MovePlayer()
 	{
