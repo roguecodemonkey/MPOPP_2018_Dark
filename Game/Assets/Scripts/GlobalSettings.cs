@@ -41,4 +41,9 @@ public class GlobalSettings : MonoBehaviour
 		set { Instance.gotThirdLevelKey = value; }
 	}
 
+	public static void Gameover()
+	{
+		print("Gameover");
+	}
+
 }
