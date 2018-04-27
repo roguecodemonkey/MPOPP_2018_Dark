@@ -76,6 +76,7 @@ GameObject:
   - component: {fileID: 114326675393145564}
   - component: {fileID: 114491506681487018}
   - component: {fileID: 114899822154502662}
+  - component: {fileID: 114189790548507874}
   m_Layer: 12
   m_Name: Player
   m_TagString: Player
@@ -121,7 +122,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1539252252391016}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.31, y: 0, z: -7.88}
+  m_LocalPosition: {x: -36.1, y: -1.34, z: -0.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4647441249065934}
@@ -332,6 +333,21 @@ Light:
   m_UseColorTemperature: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &114189790548507874
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1539252252391016}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 315da937ccb0c284fb1a24906bbb6f1f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxDistance: 2
+  raycasrMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
 --- !u!114 &114265377912435580
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -365,7 +381,6 @@ MonoBehaviour:
   cameraPivot: {fileID: 4431442147809658}
   crouchSpeedMultiplier: 0.5
   sonarCooldown: 3
-  interactingDistance: 3
 --- !u!114 &114491506681487018
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -446,13 +461,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1539252252391016}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c72e10d1555f4444397a7554d484efb7, type: 3}
+  m_Script: {fileID: 11500000, guid: 2bf4052b4e8df6546b88e5163916f607, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   pickupDistance: 2
   carriedObject: {fileID: 0}
   floatDistance: 2
-  smooth: 20
+  smooth: 12
   carrying: 0
 --- !u!124 &124191616449355132
 Behaviour:

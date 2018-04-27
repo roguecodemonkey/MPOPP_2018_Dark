@@ -56,13 +56,9 @@ public class PlayerController : MonoBehaviour
 		bodyCollider = GetComponent<CapsuleCollider>();
 		sonar = GetComponent<SonarFx>();
 		sonarTimer = new Timer();
-
-<<<<<<< HEAD
-		//interact.OnDetectionEnter.AddListener();
-=======
+		
 		interact.OnDetectionEnter.AddListener(OnDetectionRaise);
 		interact.OnDetectionExit.AddListener(OnDetectionQuit);
->>>>>>> ef2759264bd77759c0263c29e74e6db105aad8c3
 		crouchPercentage = crouchHeight / bodyCollider.height;
 		origColliderHeight = bodyCollider.height;
 		origColliderCenter = bodyCollider.center;
@@ -159,6 +155,7 @@ public class PlayerController : MonoBehaviour
 		else
 		{
 			if (!isCrouching) return;
+			if (Physics.Raycast(transform.position, Vector3.up, origColliderHeight)) return;
 			isCrouching = false;
 			bodyCollider.height = origColliderHeight;
 			bodyCollider.center = origColliderCenter;

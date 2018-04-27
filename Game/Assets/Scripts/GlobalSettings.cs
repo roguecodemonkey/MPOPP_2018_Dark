@@ -44,6 +44,7 @@ public class GlobalSettings : MonoBehaviour
 	public static void Gameover()
 	{
 		print("Gameover");
+		GlobalObject.GetOrAddComponent<SwitchLevel>().Reload();
 	}
 
 }
