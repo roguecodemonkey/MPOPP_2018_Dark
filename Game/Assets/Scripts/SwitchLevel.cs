@@ -14,4 +14,9 @@ public class SwitchLevel : MonoBehaviour
 	{
 		SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 	}
+
+	public void Exit()
+	{
+		Application.Quit();
+	}
 }

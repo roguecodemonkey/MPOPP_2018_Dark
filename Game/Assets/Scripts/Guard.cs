@@ -64,10 +64,10 @@ public class Guard : MonoBehaviour
 	private void Update()
 	{
 		LookingForPlayer();
-        if (Input.GetMouseButtonDown(0)&&Time.timeScale==0f)
+        if (Input.GetMouseButtonDown(0) && Time.timeScale==0f)
         {
             Time.timeScale = 1f;
-            SceneManager.LoadScene("2nd floor");
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
     }
 

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Interactions
 {
-	public class SecondLevelGate : Switch
+	public class SecondLevelGate : Button
 	{
 		public override void StartInteracting()
 		{

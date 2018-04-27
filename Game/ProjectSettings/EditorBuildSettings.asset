@@ -9,8 +9,14 @@ EditorBuildSettings:
     path: Assets/Scenes/MainMenu.unity
     guid: 8acd83f039ce3a848b21875565fa8e28
   - enabled: 1
-    path: Assets/Scenes/John's test ground.unity
-    guid: ff5a0e12caf4b2247ae39165d09b0e64
-  - enabled: 1
     path: Assets/Scenes/2nd floor.unity
     guid: 228f14a112854174cae9b0ee54db63d8
+  - enabled: 1
+    path: Assets/Scenes/2nd floor 1.unity
+    guid: 38bfadedb7ab7a7458a8bc70b06fde10
+  - enabled: 1
+    path: Assets/Scenes/Niko's test.unity
+    guid: b5d6f3413f3a5e14ca2f9df4af5cc758
+  - enabled: 1
+    path: Assets/Scenes/level3.unity
+    guid: c510a3797d0af38419b38592cbf0da1d

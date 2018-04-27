@@ -15,7 +15,7 @@ public class TouchTrigger : MonoBehaviour
 	UnityEvent onTrigged;
 	bool triggeed;
 
-	void OnTriggerEnter2D(Collider2D collider)
+	void OnTriggerEnter(Collider collider)
 	{
 		if (!IsTriggerable(collider.tag)) return;
 
@@ -26,7 +26,7 @@ public class TouchTrigger : MonoBehaviour
 		}
 	}
 
-	void OnCollisionEnter2D(Collision2D collision)
+	void OnCollisionEnter(Collision collision)
 	{
 		if (!IsTriggerable(collision.collider.tag)) return;
 
