@@ -14,9 +14,9 @@ public class InteractableDetector : MonoBehaviour
 	[SerializeField]
 	LayerMask raycasrMask;
 	
-	public InteractableEvent OnDetectionEnter;
+	public InteractableEvent OnDetectionEnter = new InteractableEvent();
 
-	public InteractableEvent OnDetectionExit;
+	public InteractableEvent OnDetectionExit = new InteractableEvent();
 
 	IInteractable interactableObject;
 
